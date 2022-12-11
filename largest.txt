@@ -1,0 +1,29 @@
+data segment
+arr db 0x23, 0x12, 0x7, 0x90
+data ends
+
+code segment
+assume cs:code, ds:data
+
+start:
+mov ax, data
+mov ds, ax
+lea si, arr
+mov cl, 0x03
+mov al, [si]
+inc si
+
+loop1:
+
+mov bl, [si]
+cmp al, bl
+jnc loop2
+mov al, bl
+
+loop2:
+inc si
+dec cl
+jnz loop1
+
+code ends
+end start

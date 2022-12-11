@@ -1,0 +1,45 @@
+#include <stdio.h> 
+#include <conio.h> 
+#include <string.h>
+void main()
+{
+int p,n,r,simple;
+clrscr();
+printf("Enter principal amount: "); 
+scanf("%d", &p);
+printf("Enter number of years: "); 
+scanf("%d", &n);
+printf("Enter rate of interest: "); 
+scanf("%d", &r);
+asm mov ax,p;
+asm mov bx,n;
+asm mul bx;
+asm mov cx,r;
+asm mul cx;
+asm mov simple,ax;
+printf("Simple Interest: %d",simple); getch();
+}
+
+
+#include <stdio.h> 
+#include <conio.h> 
+#include <string.h> 
+
+void main()
+{
+int n,i,j,fact;
+clrscr();
+printf("Enter the number: "); 
+scanf("%d", &n);
+j = n-1;
+asm mov ax, n;
+ 
+asm mov cx, j; 
+for(i=n;i>1;i--) {
+asm mul cx; 
+asm dec cx;
+}
+asm mov fact,ax;
+printf("Factorial of %d is %d ",n,fact); 
+getch();
+}

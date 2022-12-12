@@ -1,30 +1,70 @@
-#include <stdio.h>
-#include <string.h>
+def BestFit(blocks , process):
+    allocated_block = [-1] * len(process)
+    for i in range(len(process)):
+        miniWast = 999
+        miniblock = -1
+        for j in range(len(blocks)):
+            if blocks[j] >= process[i]:
+                if (blocks[j] - process[i]) < miniWast:
+                    miniWast = blocks[j] - process[i]
+                    miniblock = j
+        if miniWast != 999 and miniblock != -1:
+            print(blocks)
+            allocated_block[i] = blocks[miniblock]
+            blocks[miniblock] = blocks[miniblock] - process[i]
 
-int main(){
-    int data[4] = {120,320,480,80};
-    int memory[5]={400,200,300,500,600};
+    return allocated_block
 
-    int i,j,temp,temp2,best;
 
-    int a=4; // Data
-    int b=5; // Memory
 
-    for(i=0;i<a;i++){
-        best=0;
-        printf("\n %d assigned to ",data[i]);
-        for ( j = 0; j < b; j++)
-        {
-            if(data[i]<=memory[j] && memory[j]>best){
-                    best=memory[j];
-                    temp2=j;
-            }
-        }
-        memory[temp2]=best-data[i];
-        printf("%d -> ",best);
-        for(int k=0;k<b;k++){
-            printf("%d ",memory[k]);
-        }
-    }
-    return 0;
-}
+def WorstFit(blocks , process):
+    allocated_block = [-1] * len(process)
+    for i in range(len(process)):
+        maxwaste = -999
+        maxblock = -1
+        for j in range(len(blocks)):
+            if blocks[j] >= process[i]:
+                if (blocks[j] - process[i]) > maxwaste:
+                    print(maxwaste)
+                    maxwaste = blocks[j] - process[i]
+                    maxblock = j
+        if maxwaste != 999 and maxblock != -1:
+            print(blocks)
+            allocated_block[i] = blocks[maxblock]
+            blocks[maxblock] = blocks[maxblock] - process[i]
+
+    return allocated_block
+
+
+def NextFit(blocks,process):
+    allocated_block = [-1]*len(process)
+    allocated = [False] * len(process)
+    for i in range(len(blocks)):
+        for j in range(len(process)):
+            if blocks[i] >= process[j] and allocated[j] == False:
+                allocated_block[j] = blocks[i]
+                blocks[i] = blocks[i] - process[j]
+                allocated[j] = True
+                break
+    return allocated_block
+
+def FirstFit(blocks, process):
+    allocated_block = [-1]*len(process)
+    for i in range(len(process)):
+        for j in range(len(blocks)):
+            if blocks[j]  >= process[i]:
+                allocated_block[i] = blocks[j] 
+                blocks[j] -= process[i]
+                break
+    return allocated_block
+
+
+if __name__ == "__main__":
+    blocks = list(map(int , input("Enter blocks in list").split(" ")))
+    process = list(map(int , input("Enter processes in list").split(" ")))
+    # print(BestFit(blocks,process))
+    # print(WorstFit(blocks,process))
+    # print(NextFit(blocks,process))
+    print(FirstFit(blocks,process))
+            
+

@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+    int data[4] = {120,320,480,80};
+    int memory[5]={400,200,300,500,600};
+
+    int i,j,temp,temp2,best;
+
+    int a=4; // Data
+    int b=5; // Memory
+
+    for(i=0;i<a;i++){
+        best=0;
+        printf("\n %d assigned to ",data[i]);
+        for ( j = 0; j < b; j++)
+        {
+            if(data[i]<=memory[j] && memory[j]>best){
+                    best=memory[j];
+                    temp2=j;
+            }
+        }
+        memory[temp2]=best-data[i];
+        printf("%d -> ",best);
+        for(int k=0;k<b;k++){
+            printf("%d ",memory[k]);
+        }
+    }
+    return 0;
+}
